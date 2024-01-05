@@ -1,7 +1,9 @@
-import Currency from './3-currency';
+import Currency from './currency';
 
 export default class Pricing extends Currency {
-  super(amount, currency)
+  constructor(amount, currency) {
+    super(amount, currency);
+  }
 
   static convertPrice(amount, conversionRate) {
     return amount * conversionRate;
