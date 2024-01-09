@@ -3,20 +3,21 @@ function updateStudentGradeByCity(getListStudents, city, newGrades) {
     return [];
   }
 
-  const studentList = getListStudents.map((obj) => {
-    let grade = 0;
+  const studentList = getListStudents.filter((obj) => obj.location === city)
+    .map((student) => {
+      let grade = 0;
 
-    if (obj.location === city) {
-      const gradeList = newGrades.filter((student) => student.studentId === obj.id);
-      grade = gradeList.length === 0 ? 'N/A' : gradeList[0].grade;
+      if (student !== undefined) {
+        const gradeList = newGrades.filter((obj) => obj.studentId === student.id);
+        grade = gradeList.length === 0 ? 'N/A' : gradeList[0].grade;
 
-      return {
-        ...obj,
-        grade,
-      };
-    }
-    return obj;
-  }).filter((student) => student !== undefined);
+        return {
+          ...student,
+          grade,
+        };
+      }
+      return null;
+    }).filter((stud) => stud !== null);
 
   return studentList;
 }
