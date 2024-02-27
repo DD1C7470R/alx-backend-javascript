@@ -1,6 +1,12 @@
 const http = require('http');
-const fs = require('fs/promises');
+const fs = require('fs');
+const { promisify } = require('util');
 const path = require('path');
+
+const readFileAsync = promisify(fs.readFile);
+
+const hostname = '127.0.0.1';
+const port = 1245;
 
 const app = http.createServer(async (req, res) => {
   res.statusCode = 200;
@@ -11,7 +17,7 @@ const app = http.createServer(async (req, res) => {
   } else if (req.url === '/students') {
     const results = ['This is the list of our students'];
     try {
-      const data = await fs.readFile(path.resolve('database.csv'), 'utf8');
+      const data = await readFileAsync(path.resolve('database.csv'), 'utf8');
       if (!data) {
         throw new Error('Cannot load the database');
       }
@@ -37,13 +43,15 @@ const app = http.createServer(async (req, res) => {
         }
       }
       res.end(results.join('\n'));
+      return data;
     } catch (error) {
       res.end('Cannot load the database');
     }
   } else {
     res.end('404 Not found');
   }
+  return null;
 });
-app.listen(1245, 'localhost', () => null);
+app.listen(port, hostname, () => null);
 
 module.exports = app;
