@@ -1,6 +1,6 @@
 const { spawn } = require('node:child_process');
 
-const cmd = spawn('echo', ['Welcome to GVtech School, what is your name?']);
+const cmd = spawn('echo', ['Welcome to Holberton School, what is your name?']);
 process.stdin.setEncoding('utf8');
 
 cmd.stdout.on('data', (data) => {
