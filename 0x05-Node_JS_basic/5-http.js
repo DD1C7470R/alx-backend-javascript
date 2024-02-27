@@ -1,7 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const { promisify } = require('util');
-const path = require('path');
+
 
 const readFileAsync = promisify(fs.readFile);
 
@@ -13,11 +13,11 @@ const app = http.createServer(async (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
 
   if (req.url === '/') {
-    res.end('Hello GVTech School! ');
+    res.end('Hello Holberton School! ');
   } else if (req.url === '/students') {
     const results = ['This is the list of our students'];
     try {
-      const data = await readFileAsync(path.resolve('database.csv'), 'utf8');
+      const data = await readFileAsync(process.argv[2], 'utf8');
       if (!data) {
         throw new Error('Cannot load the database');
       }
