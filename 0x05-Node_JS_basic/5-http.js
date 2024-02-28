@@ -2,8 +2,7 @@ const http = require('http');
 const fs = require('fs');
 
 const app = http.createServer(async (req, res) => {
-  res.statusCode = 200;
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.contentType = 'text/plain';
 
   if (req.url === '/') {
     res.end('Hello Holberton School! ');
@@ -29,15 +28,19 @@ const app = http.createServer(async (req, res) => {
 
       for (const field in fields) {
         if (field !== 'field') {
-          results.push(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
+          const size = fields[field].length;
+          const classList = fields[field];
+          results.push(`Number of students in ${field}: ${size}. List: ${classList.join(', ')}`);
         }
       }
+      res.statusCode = 200;
       res.end(results.join('\n'));
     } catch (error) {
       res.statusCode = 404;
       res.end('Cannot load the database');
     }
   } else {
+    res.statusCode = 404;
     res.end('404 Not found');
   }
 });
