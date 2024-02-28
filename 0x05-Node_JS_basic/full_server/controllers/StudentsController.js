@@ -18,7 +18,7 @@ class StudentsController {
       res.statusCode = 200;
       res.end(results.join('\n'));
     } catch (error) {
-	    console.log(error)
+	    console.log(error);
       res.statusCode = 500;
       res.end('Cannot load the database');
     }
@@ -38,7 +38,6 @@ class StudentsController {
       res.statusCode = 200;
       res.end(`List: ${results.join(', ')}`);
     } catch (error) {
-	    console.log(error)
       res.statusCode = 500;
       res.end('Cannot load the database');
     }

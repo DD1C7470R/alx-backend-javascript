@@ -11,4 +11,3 @@ app.listen(1245, 'localhost', () => {
 });
 
 export default app;
-
