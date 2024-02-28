@@ -40,7 +40,7 @@ const app = http.createServer(async (req, res) => {
       res.end(outString);
     } catch (error) {
       res.statusCode = 404;
-      res.end('Cannot load the database');
+      res.end('This is the list of our students\nCannot load the database');
     }
   }
 });
