@@ -10,10 +10,7 @@ const app = http.createServer(async (req, res) => {
   } else if (req.url === '/students') {
     const results = ['This is the list of our students'];
     try {
-      const data = fs.promises.readFile(process.argv[2], 'utf8');
-      if (!data) {
-        throw new Error('Cannot load the database');
-      }
+      const data = await fs.promises.readFile(process.argv[2], 'utf8');
       const lines = data.split('\n').filter((line) => line.trim() !== '');
       const students = lines.map((line) => line.split(',').map((student) => student.trim()));
 
@@ -37,6 +34,7 @@ const app = http.createServer(async (req, res) => {
       }
       res.end(results.join('\n'));
     } catch (error) {
+	    console.log(error)
       res.end('Cannot load the database');
     }
   } else {
