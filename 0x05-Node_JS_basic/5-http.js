@@ -34,7 +34,6 @@ const app = http.createServer(async (req, res) => {
       }
       res.end(results.join('\n'));
     } catch (error) {
-	    console.log(error)
       res.end('Cannot load the database');
     }
   } else {
