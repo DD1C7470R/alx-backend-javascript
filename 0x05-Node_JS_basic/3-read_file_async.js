@@ -1,42 +1,32 @@
-const { readFile } = require('fs');
+const fs = require('fs');
 
-function countStudents(fileName) {
-  const students = {};
-  const fields = {};
-  let length = 0;
-  return new Promise((resolve, reject) => {
-    readFile(fileName, (error, data) => {
-      if (error) {
-        reject(Error('Cannot load the database'));
+async function countStudents(path) {
+  try {
+    const data = await fs.promises.readFile(path, 'utf8');
+    const lines = data.split('\n').filter((line) => line.trim() !== '');
+    const students = lines.map((line) => line.split(',').map((student) => student.trim()));
+
+    const fields = {};
+    students.forEach((student) => {
+      const [firstName, , , field] = student;
+
+      if (fields[field]) {
+        fields[field].push(firstName);
       } else {
-        const lines = data.toString().split('\n');
-        for (let i = 0; i < lines.length; i += 1) {
-          if (lines[i]) {
-            length += 1;
-            const field = lines[i].toString().split(',');
-            if (Object.prototype.hasOwnProperty.call(students, field[3])) {
-              students[field[3]].push(field[0]);
-            } else {
-              students[field[3]] = [field[0]];
-            }
-            if (Object.prototype.hasOwnProperty.call(fields, field[3])) {
-              fields[field[3]] += 1;
-            } else {
-              fields[field[3]] = 1;
-            }
-          }
-        }
-        const l = length - 1;
-        console.log(`Number of students: ${l}`);
-        for (const [key, value] of Object.entries(fields)) {
-          if (key !== 'field') {
-            console.log(`Number of students in ${key}: ${value}. List: ${students[key].join(', ')}`);
-          }
-        }
-        resolve(data);
+        fields[field] = [firstName];
       }
     });
-  });
-}
+    const NUMBER_OF_STUDENTS = students.length - 1;
+    console.log(`Number of students: ${NUMBER_OF_STUDENTS}`);
 
+    for (const field in fields) {
+      if (field !== 'field') {
+        console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
+      }
+    }
+    return data;
+  } catch (error) {
+    throw new Error('Cannot load the database');
+  }
+}
 module.exports = countStudents;
