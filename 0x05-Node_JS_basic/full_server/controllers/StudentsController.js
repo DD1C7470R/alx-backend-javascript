@@ -1,24 +1,22 @@
 import readDatabase from '../utils';
 
-const dbfile = process.argv[2];
 class StudentsController {
   static
   async getAllStudents(req, res) {
     try {
+      const dbfile = process.argv[2];
       const db = await readDatabase(dbfile);
-      const results = ['This is the list of our students'];
+      let output = 'This is the list of our students\n';
       for (const field in db) {
         if (field !== 'field') {
-          results.push(
-            `Number of students in ${field}: ${db[field].length}. List: ${db[field].join(', ')}`,
-          );
+          output += `Number of students in ${field}: ${db[field].length}. List: ${db[field].join(', ')}\n`;
         }
       }
 
       res.statusCode = 200;
-      res.end(results.join('\n'));
+      const results = output.slice(0, -1);
+      res.end(results);
     } catch (error) {
-	    console.log(error);
       res.statusCode = 500;
       res.end('Cannot load the database');
     }
@@ -28,6 +26,7 @@ class StudentsController {
   async getAllStudentsByMajor(req, res) {
     try {
       const { major } = req.params;
+      const dbfile = process.argv[2];
       const db = await readDatabase(dbfile);
 
       const results = db[major];
