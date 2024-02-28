@@ -6,7 +6,7 @@ const app = http.createServer(async (req, res) => {
 
   if (req.url === '/') {
     res.statusCode = 200;
-    res.end('Hello Holberton School! ');
+    res.end('Hello Holberton School!');
   }
   if (req.url === '/students') {
     let results = 'This is the list of our students\n';
