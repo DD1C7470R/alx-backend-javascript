@@ -6,8 +6,9 @@ const app = http.createServer(async (req, res) => {
 
   if (req.url === '/') {
     res.end('Hello Holberton School! ');
-  } else if (req.url === '/students') {
-    const results = ['This is the list of our students'];
+  }
+  if (req.url === '/students') {
+    let results = 'This is the list of our students\n';
     try {
       const data = await fs.promises.readFile(process.argv[2], 'utf8');
       const lines = data.split('\n').filter((line) => line.trim() !== '');
@@ -24,24 +25,22 @@ const app = http.createServer(async (req, res) => {
         }
       });
       const NUMBER_OF_STUDENTS = students.length - 1;
-      results.push(`Number of students: ${NUMBER_OF_STUDENTS}`);
+      results += `Number of students: ${NUMBER_OF_STUDENTS}\n`;
 
       for (const field in fields) {
         if (field !== 'field') {
           const size = fields[field].length;
           const classList = fields[field];
-          results.push(`Number of students in ${field}: ${size}. List: ${classList.join(', ')}`);
+          results += `Number of students in ${field}: ${size}. List: ${classList.join(', ')}\n`;
         }
       }
+      const outString = results.slice(0, -1);
       res.statusCode = 200;
-      res.end(results.join('\n'));
+      res.end(outString);
     } catch (error) {
       res.statusCode = 404;
       res.end('Cannot load the database');
     }
-  } else {
-    res.statusCode = 404;
-    res.end('404 Not found');
   }
 });
 app.listen(1245, 'localhost', () => {});
