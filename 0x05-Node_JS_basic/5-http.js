@@ -39,7 +39,7 @@ const app = http.createServer(async (req, res) => {
       res.statusCode = 200;
       res.end(outString);
     } catch (error) {
-      res.statusCode = 500;
+      res.statusCode = 404;
       res.end('Cannot load the database');
     }
   }
