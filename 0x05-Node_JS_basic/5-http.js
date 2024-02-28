@@ -7,7 +7,7 @@ const app = http.createServer(async (req, res) => {
   if (req.url === '/') {
     res.end('Hello Holberton School! ');
   } else if (req.url === '/students') {
-    const results = ['This is the list of our students'];
+    const results = ['This is the list of our students\n'];
     try {
       const data = await fs.promises.readFile(process.argv[2], 'utf8');
       const lines = data.split('\n').filter((line) => line.trim() !== '');
@@ -30,11 +30,11 @@ const app = http.createServer(async (req, res) => {
         if (field !== 'field') {
           const size = fields[field].length;
           const classList = fields[field];
-          results.push(`Number of students in ${field}: ${size}. List: ${classList.join(', ')}`);
+          results.push(`Number of students in ${field}: ${size}. List: ${classList.join(', ')}\n`);
         }
       }
       res.statusCode = 200;
-      res.end(results.join('\n'));
+      res.end(results);
     } catch (error) {
       res.statusCode = 404;
       res.end('Cannot load the database');
