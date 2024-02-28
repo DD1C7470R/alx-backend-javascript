@@ -24,7 +24,7 @@ const app = http.createServer(async (req, res) => {
         }
       });
       const NUMBER_OF_STUDENTS = students.length - 1;
-      results.push(`Number of students: ${NUMBER_OF_STUDENTS}`);
+      results.push(`Number of students: ${NUMBER_OF_STUDENTS}\n`);
 
       for (const field in fields) {
         if (field !== 'field') {
