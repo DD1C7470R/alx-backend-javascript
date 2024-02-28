@@ -5,6 +5,7 @@ const app = http.createServer(async (req, res) => {
   res.contentType = 'text/plain';
 
   if (req.url === '/') {
+    res.statusCode = 200;
     res.end('Hello Holberton School! ');
   }
   if (req.url === '/students') {
