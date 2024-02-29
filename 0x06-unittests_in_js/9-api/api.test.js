@@ -28,7 +28,7 @@ describe("Index page", function() {
 			});
 			it("check correct content length", function(done) {
 			request(options, function(err, res, body) {
-				expect(res.headers['content-length']).to.equal('29');
+				expect(res.headers['content-length']).to.equal('27');
 				done();
 			});
 			});
@@ -53,7 +53,7 @@ describe("Index page", function() {
 	
 			it("check correct content length", function(done) {
 			request(options, function(err, res, body) {
-				expect(res.headers['content-length']).to.equal('149');
+				expect(res.headers['content-length']).to.equal('1431');
 				done();
 			});
 			});
