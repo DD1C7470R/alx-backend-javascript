@@ -13,6 +13,6 @@ describe('full HTTP server using Express', () => {
         chai.expect(response.statusCode).to.equal(200);
 	  });
 	  done();
-    }));
+    });
   });
 );
