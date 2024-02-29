@@ -1,21 +1,19 @@
 const chai = require('chai');
-const chaiHttp = require('chai-http');
+const request = require('request');
 
-const app = require('./api');
 
-chai.use(chaiHttp);
-chai.should();
-
-describe('full HTTP server using Express', () => {
+describe('Full HTTP server using Express', () => {
   describe('/ endpoint', () => {
-    it('returns the right content', () => new Promise((done) => {
-      chai.request(app)
-        .get('/')
-        .end((error, response) => {
-          chai.expect(response.text).to.equal('Welcome to the payment system');
-          chai.expect(response.statusCode).to.equal(200);
-          done();
-        });
-    }));
+    it('Returns the right content', (done) =>  {
+		const options = {
+			url: "http://localhost:7865/",
+			method: "GET"
+		}
+      request(options, (err, response, body) => {
+		chai.expect(body).to.have.string('Welcome to the payment system');
+		chai.expect(response.statusCode).to.equal(200);
+	  });
+	  done();
+	});
   });
 });
