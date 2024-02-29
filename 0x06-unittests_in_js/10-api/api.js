@@ -34,7 +34,7 @@ app.post("/login", (req, res) => {
 	console.log(req.body)
 	const username = req.body["userName"];
 	if (!username) {
-		res.statusCode = 400;
+		res.statusCode = 404;
 		return res.end('username is required');
 	}
 

@@ -94,4 +94,18 @@ describe("user login", function() {
 			done();
 		});
     });
+
+    it("check correct status code for request that's not sent properly", function(done) {
+	const op = {
+	    url: "http://localhost:7865/login",
+	    json: true,
+	    body: {
+		usame: 'JOE'
+	    }
+	};
+	request.post(op, function(err, res, body) {
+	    expect(res.statusCode).to.equal(404);
+	    done();
+	});
+    });
 });
