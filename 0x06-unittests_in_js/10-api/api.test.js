@@ -108,4 +108,23 @@ describe("user login", function() {
 	    done();
 	});
     });
+
+    it("check correct content for request that's sent properly", function(done) {
+	const opts = {
+	    url: "http://localhost:7865/login",
+	    json: true,
+	    body: {
+		userName: 'JOE'
+	    }
+	};
+	request.post(opts, function(err, res, body) {
+	    if (err) {
+		expect(res.statusCode).to.not.equal(200);
+	    } else {
+		expect(body).to.contain('Welcome JOE');
+	    }
+	    done();
+	});
+    });
+
 });
