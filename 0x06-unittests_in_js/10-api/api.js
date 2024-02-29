@@ -13,8 +13,7 @@ app.get("/cart/:id", (req, res) => {
 	const id = req.params.id
 	if (!(/^\d/.test(id))) {
 		res.statusCode = 404;
-		res.end(`Not found`);
-		throw new Error('Invalid id');
+		return res.json({message: `Not found`});
 	}
 	res.statusCode = 200;
 	res.end(`Payment methods for cart ${Number(id)}`);
