@@ -6,9 +6,9 @@ const app = require('./api');
 chai.use(chaiHttp);
 chai.should();
 
-describe('Full HTTP server using Express', () => {
+describe('full HTTP server using Express', () => {
   describe('/ endpoint', () => {
-    it('Returns the right content', (done) => {
+    it('returns the right content', () => new Promise((done) => {
       chai.request(app)
         .get('/')
         .end((error, response) => {
@@ -16,6 +16,6 @@ describe('Full HTTP server using Express', () => {
           chai.expect(response.statusCode).to.equal(200);
           done();
         });
-    });
+    }));
   });
 });
