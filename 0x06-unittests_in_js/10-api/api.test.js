@@ -82,18 +82,12 @@ describe("user login", function() {
 
     it("check correct content for correct url", function(done) {
 		request(options, function(err, res, body) {
-			expect(body).to.have.property('message').to.include(`Welcome: ${username}`);
-			expect(body).to.deep.equal({message: `Welcome: ${username}`});
+			expect(body).to.have.property('message').to.include(`Welcome ${username}`);
+			expect(body).to.deep.equal({message: `Welcome ${username}`});
 			done();
 		});
     });
 
-    it("check correct content for correct url", function(done) {
-		request(options, function(err, res, body) {
-			expect(body).to.have.property('message').to.include(`Welcome: John`);
-			done();
-		});
-    });
 
     it("check correct status code for request that's not sent properly", function(done) {
 	const op = {
@@ -113,15 +107,16 @@ describe("user login", function() {
 	const opts = {
 	    url: "http://localhost:7865/login",
 	    json: true,
+            method: "POST",
 	    body: {
 		userName: 'JOE'
 	    }
 	};
-	request.post(opts, function(err, res, body) {
+	request(opts, function(err, res, body) {
 	    if (err) {
 		expect(res.statusCode).to.not.equal(200);
 	    } else {
-		expect(body).to.contain('Welcome JOE');
+		expect(body).to.have.property("message").to.include('Welcome JOE');
 	    }
 	    done();
 	});

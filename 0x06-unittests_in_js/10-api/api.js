@@ -30,7 +30,6 @@ app.get("/available_payments", (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-	console.log(req.body)
 	const username = req.body["userName"];
 	if (!username) {
 		res.statusCode = 404;
@@ -38,7 +37,7 @@ app.post("/login", (req, res) => {
 	}
 
 	res.statusCode = 200;
-	res.json({message: `Welcome: ${username}`});
+	res.json({message: `Welcome ${username}`});
 })
 
 app.listen( 7865, "localhost", () => {
