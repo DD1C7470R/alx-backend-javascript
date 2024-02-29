@@ -37,7 +37,7 @@ app.post("/login", (req, res) => {
 	}
 
 	res.statusCode = 200;
-	res.json({message: `Welcome ${username}`});
+	res.end(`Welcome ${username}`);
 })
 
 app.listen( 7865, "localhost", () => {
